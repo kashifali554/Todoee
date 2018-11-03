@@ -11,10 +11,19 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggos", "Destory Deogorgon"]
+    
+//    Creating a user defaults object from UserDefaults class.
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+//        reterive the data
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
     }
     
     // MARK: numberOfRowsInSection
@@ -62,6 +71,8 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
 //            What will happen once the user clicks the add time button on our UIAlert
             self.itemArray.append(textField.text!)
+//            Updated item array to user defaults are saved in plist file as key value pair
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
 //          Relaoad the data on the view to add the item from alert to the view.
             self.tableView.reloadData()
         }
