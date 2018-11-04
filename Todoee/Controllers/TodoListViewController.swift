@@ -23,7 +23,6 @@ class TodoListViewController: UITableViewController {
 //        Creating a new Item object from data model class
         let newItem = Item()
         newItem.title = "Find Mike"
-        newItem.done = true
         itemArray.append(newItem)
     
         let newItem2 = Item()
@@ -31,9 +30,9 @@ class TodoListViewController: UITableViewController {
         itemArray.append(newItem2)
         
 //        reterive the data
-//        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
-//            itemArray = items
-//        }
+        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
+            itemArray = items
+        }
     }
     
     // MARK: numberOfRowsInSection
@@ -45,15 +44,20 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //        Indicating towards the cell via identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        //        Setting the text of the table to use it from hard coded array
+        
+        let item  = itemArray[indexPath.row]
+        
+//        Setting the text of the table to use it from hard coded array
         cell.textLabel?.text = itemArray[indexPath.row].title
 //        chenging the actual done mark
-        if itemArray[indexPath.row].done == true {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+//        Recounstruction wit iternaray markts
+        cell.accessoryType = item.done ? .checkmark : .none
         
+//        if item.done == true {
+//            cell.accessoryType = .checkmark
+//        } else {
+//            cell.accessoryType = .none
+//        }
         
         return cell
     }
@@ -61,14 +65,10 @@ class TodoListViewController: UITableViewController {
     //    Mark: Table View Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("CellForRowAtIndexPath called")
-//        print(itemArray[indexPath.row])
+
 //        Checking if cell is marked done or not
-        if itemArray[indexPath.row].done == false {
-            itemArray[indexPath.row].done = true
-        } else {
-            itemArray[indexPath.row].done = false
-        }
+        
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
 //        Checkes tick mark if cell is selected
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
