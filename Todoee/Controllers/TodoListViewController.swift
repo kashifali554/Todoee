@@ -24,19 +24,18 @@ class TodoListViewController: UITableViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
         
-//        Creating a new Item object from data model class
-        let newItem = Item()
-        newItem.title = "Find Mike"
-        itemArray.append(newItem)
-    
-        let newItem2 = Item()
-        newItem2.title = "Buy Eggs"
-        itemArray.append(newItem2)
-        
+////        Creating a new Item object from data model class
+//        let newItem = Item()
+//        newItem.title = "Find Mike"
+//        itemArray.append(newItem)
+//
+//        let newItem2 = Item()
+//        newItem2.title = "Buy Eggs"
+//        itemArray.append(newItem2)
+//
 //        reterive the data
-//        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-//            itemArray = items
-//        }
+        loadItems()
+        
     }
     
     // MARK: numberOfRowsInSection
@@ -141,7 +140,17 @@ class TodoListViewController: UITableViewController {
         self.tableView.reloadData()
         }
     
-    
+    func loadItems() {
+        
+        if let data = try? Data(contentsOf: dataFilePath!){
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Print error decoding data \(error)")
+            }
+        }
+    }
     
 
 }
