@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         self.saveContext()
     }
     
