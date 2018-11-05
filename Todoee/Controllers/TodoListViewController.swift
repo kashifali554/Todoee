@@ -48,15 +48,21 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
+//        context.delete(itemArray[IndexPath.row])
+//        itemArray.remove(at: IndexPath.row)
+       
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        saveItems()
         
-        tableView.reloadData()
+//        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+//        } else {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+//        }
+        
+//        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
 
