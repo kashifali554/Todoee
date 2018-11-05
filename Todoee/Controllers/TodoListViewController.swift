@@ -11,6 +11,8 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
+    //  Singltion
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
 //    Creating a user defaults object from UserDefaults class.
     
@@ -18,6 +20,8 @@ class TodoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         // Do any additional setup after loading the view, typically from a nib.
         
 //        Creating a new Item object from data model class
@@ -30,9 +34,9 @@ class TodoListViewController: UITableViewController {
         itemArray.append(newItem2)
         
 //        reterive the data
-        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-            itemArray = items
-        }
+//        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
+//            itemArray = items
+//        }
     }
     
     // MARK: numberOfRowsInSection
@@ -102,9 +106,9 @@ class TodoListViewController: UITableViewController {
             
 //            self.itemArray.append(textField.text!)
 //            Updated item array to user defaults are saved in plist file as key value pair
-            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-//          Relaoad the data on the view to add the item from alert to the view.
-            self.tableView.reloadData()
+//            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
+            self.saveItems()
         }
         
 //        Add text field to the alertbody (Code is coming from alert class) Closure
@@ -120,6 +124,23 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
         
     }
+    
+    //    Mark:  Model Manupulation Methods
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error)")
+        }
+        
+        //          Relaoad the data on the view to add the item from alert to the view.
+        self.tableView.reloadData()
+        }
+    
     
     
 
