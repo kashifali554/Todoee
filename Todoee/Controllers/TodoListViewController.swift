@@ -115,15 +115,34 @@ class TodoListViewController: UITableViewController {
         
     }
     
-    func loadItems() {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        
 //        Specifying the data type in below variable
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
+//        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
         do {
             itemArray =  try context.fetch(request)
         } catch {
             print("Error fetching data fromontext \(error)")
         }
+        tableView.reloadData()
     }
+    
+}
 
+//Mark: - Search bar methods
 
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        Fetch request
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+//        To query from Coredata, we use NSPredicate
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request)
+    }
+    
 }
