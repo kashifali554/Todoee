@@ -102,7 +102,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="YK3-rH-HfI">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="addButtonPressed:" destination="vXu-gb-plD" id="T0G-Lj-SQ2"/>
+                                <action selector="addButtonPressed:" destination="vXu-gb-plD" id="bJo-Dh-gHj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
