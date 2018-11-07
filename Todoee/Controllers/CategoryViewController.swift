@@ -19,7 +19,7 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        loadCategories()
     }
     
     //    Mark: TableView Datasource Methods
@@ -28,17 +28,13 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         
         cell.textLabel?.text = categories[indexPath.row].name
         
         return cell
     }
-    
-
-    
-    //    Cell for row at
-  
     
     //    Mark: Data Manipulation Methods
     func saveCategories() {
@@ -88,5 +84,6 @@ class CategoryViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-        //    Mark: TableView delegate Methods
 }
+
+        //    Mark: TableView delegate Methods
