@@ -10,11 +10,11 @@ import UIKit
 import RealmSwift
 
 class TodoListViewController: UITableViewController {
-    
+//    Collections of results of item objects
     var todoItems: Results<Item>?
     
     var realm = try! Realm()
-    
+//    Loads the items of selected category
     var selectedCategory : Category? {
         didSet{
             loadItems()
@@ -111,7 +111,7 @@ class TodoListViewController: UITableViewController {
     
     
     func loadItems() {
-
+//Loads all of to do items, collections of results of "Item" objects
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
 
         tableView.reloadData()
