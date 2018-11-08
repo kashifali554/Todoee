@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //This happens when app did load before viewdidload
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+
+//       Dummy data
+        let data = Data()
+        data.name = "Kashif"
+        data.age = 29
+        
+        //       Realm allow us to use OOP and Presist data
+        do {
+            let realm = try Realm()
+//            commit the current state to presistent storage
+            try realm.write {
+                realm.add(data)
+            }
+        } catch {
+            print("Error initialising new realm, \(error)")
+        }
+        
+        
         return true
     }
     
