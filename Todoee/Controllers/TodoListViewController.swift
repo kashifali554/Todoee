@@ -21,10 +21,6 @@ class TodoListViewController: UITableViewController {
         }
     }
     
-//    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
-//
-//    let defaults = UserDefaults.standard
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,8 +58,7 @@ class TodoListViewController: UITableViewController {
         if let item = todoItems?[indexPath.row] {
             do {
             try realm.write {
-                realm.delete(item)
-//                item.done = !item.done
+                item.done = !item.done
             }
             } catch {
                 print("Error saving done status, \(error)")
@@ -71,20 +66,6 @@ class TodoListViewController: UITableViewController {
         }
         
         tableView.reloadData()
-        
-        
-//        context.delete(itemArray[IndexPath.row])
-//        itemArray.remove(at: IndexPath.row)
-       
-//        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        
-//        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
-//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-//        } else {
-//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-//        }
-        
-//        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
 
