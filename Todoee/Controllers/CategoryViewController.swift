@@ -16,7 +16,6 @@ class CategoryViewController: UITableViewController {
     
     var categories : Results<Category>!
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,7 +31,7 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        
+//        Nil Cloesing Operator
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet"
         
         return cell
@@ -64,7 +63,7 @@ class CategoryViewController: UITableViewController {
     }
     
     func loadCategories() {
-        let categories = realm.objects(Category.self)
+        categories = realm.objects(Category.self)
         
         tableView.reloadData()
     }
